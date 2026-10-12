@@ -2,12 +2,6 @@
 <!--
   ====================================================================
   NURSULTAN CLIENT CRACK 1.21.11 — лендинг с прямым скачиванием
-
-  Ссылка на скачивание уже вставлена в переменную DOWNLOAD_URL
-  в блоке <script> внизу файла. Чтобы поменять её — просто
-  замени значение в кавычках, все кнопки «Скачать» обновятся сами.
-
-  Все три кнопки (в шапке, в hero и в блоке скачивания) уже рабочие.
   ====================================================================
 -->
 <html lang="ru">
@@ -35,7 +29,6 @@
     font-family:'Manrope',sans-serif;background:var(--bg);color:var(--text);
     line-height:1.6;overflow-x:hidden;font-size:16px;
   }
-  /* фон: свечения + сетка */
   body::before{content:'';position:fixed;inset:0;z-index:-2;
     background:
       radial-gradient(900px 500px at 85% -10%,rgba(18,201,165,.12),transparent 60%),
@@ -165,7 +158,6 @@
   .i-obs{background:#241b3d;background-image:radial-gradient(circle at 30% 30%,rgba(120,90,200,.4),transparent 60%)}
   .i-wood{background:#a87b4e;background-image:repeating-linear-gradient(180deg,rgba(0,0,0,.16) 0 3px,transparent 3px 8px)}
 
-  /* плавающие чипы модулей */
   .chip{position:absolute;display:flex;align-items:center;gap:9px;z-index:6;
     background:rgba(13,17,26,.85);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
     border:1px solid var(--border);border-radius:10px;padding:8px 12px;
@@ -228,12 +220,49 @@
   .toast.show{transform:translate(-50%,0)}
   .toast svg{color:var(--accent);flex:none}
 
+  /* ================= МОДАЛКА АНТИВИРУС ================= */
+  .modal-overlay{position:fixed;inset:0;z-index:300;display:flex;align-items:center;justify-content:center;
+    padding:20px;background:rgba(3,5,9,.82);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+    opacity:0;pointer-events:none;transition:opacity .3s}
+  .modal-overlay.show{opacity:1;pointer-events:auto}
+  .modal{width:min(560px,100%);background:#0b1018;border-radius:22px;padding:2px;
+    background-image:linear-gradient(135deg,rgba(255,90,90,.6),rgba(255,170,60,.4),rgba(255,90,90,.2));
+    transform:translateY(24px) scale(.97);transition:transform .35s cubic-bezier(.2,.9,.3,1.2);
+    box-shadow:0 40px 90px -30px rgba(0,0,0,.85)}
+  .modal-overlay.show .modal{transform:none}
+  .modal-inner{background:#0b1018;border-radius:21px;padding:34px 30px 28px;text-align:center;
+    position:relative;overflow:hidden}
+  .modal-inner::before{content:'';position:absolute;top:-60px;left:50%;transform:translateX(-50%);
+    width:240px;height:180px;background:radial-gradient(circle,rgba(255,170,60,.18),transparent 70%);pointer-events:none}
+  .modal-ic{width:64px;height:64px;border-radius:18px;margin:0 auto 20px;
+    display:flex;align-items:center;justify-content:center;
+    background:rgba(255,170,60,.12);border:1px solid rgba(255,170,60,.35);color:#ffb547;
+    animation:warnPulse 2s ease-in-out infinite}
+  .modal h3{font-family:'Unbounded';font-size:20px;font-weight:700;line-height:1.25;margin-bottom:14px}
+  .modal p{color:var(--muted);font-size:14.5px;margin-bottom:10px}
+  .modal .warn-list{text-align:left;margin:18px auto 0;max-width:440px;display:flex;flex-direction:column;gap:10px}
+  .modal .warn-list li{list-style:none;display:flex;gap:11px;align-items:flex-start;
+    font-size:13.5px;color:var(--muted);background:rgba(255,255,255,.03);
+    border:1px solid var(--border);border-radius:12px;padding:11px 14px}
+  .modal .warn-list li svg{flex:none;margin-top:2px;color:#ffb547}
+  .modal .warn-list li b{color:var(--text);font-weight:700}
+  .modal-actions{display:flex;gap:12px;margin-top:26px;justify-content:center;flex-wrap:wrap}
+  .btn-warn{background:linear-gradient(135deg,#ffb547,#ff8a3d);color:#241100;padding:14px 26px;
+    font-size:15px;border-radius:12px;box-shadow:0 12px 34px -12px rgba(255,150,60,.6)}
+  .btn-warn:hover{transform:translateY(-2px);filter:brightness(1.06);
+    box-shadow:0 18px 44px -12px rgba(255,150,60,.75)}
+  .btn-cancel{background:rgba(255,255,255,.04);color:var(--text);border:1px solid var(--border);
+    padding:14px 24px;font-size:15px;border-radius:12px}
+  .btn-cancel:hover{border-color:rgba(255,255,255,.3);transform:translateY(-2px)}
+  .modal-note{margin-top:18px;font-size:12px;color:var(--muted);opacity:.85}
+
   /* ================= АНИМАЦИИ ================= */
   @keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
   @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
   @keyframes charFloat{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-9px)}}
   @keyframes shadowPulse{0%,100%{transform:translateX(-50%) scale(1);opacity:.55}50%{transform:translateX(-50%) scale(.82);opacity:.35}}
+  @keyframes warnPulse{0%,100%{box-shadow:0 0 0 0 rgba(255,170,60,.35)}50%{box-shadow:0 0 0 14px rgba(255,170,60,0)}}
   .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s,transform .7s}
   .reveal.in{opacity:1;transform:none}
 
@@ -264,6 +293,9 @@
     .btn-xl .xl-row{font-size:15px}
     .cta{padding:44px 20px}
     .header-actions .btn{display:none}
+    .modal-inner{padding:26px 20px 22px}
+    .modal-actions{flex-direction:column}
+    .modal-actions .btn{width:100%}
   }
 </style>
 </head>
@@ -300,7 +332,6 @@
           <li data-lang="en">English</li>
         </ul>
       </div>
-      <!-- ссылка подставляется из DOWNLOAD_URL в скрипте -->
       <a class="btn btn-primary btn-sm" data-dl href="#" data-i18n="btn_download_sm">Скачать</a>
       <button class="burger" id="burger" aria-label="Меню"><span></span><span></span><span></span></button>
     </div>
@@ -319,7 +350,6 @@
         стабильный FPS и гибкая настройка под твой стиль. Никакой оплаты — просто скачай и играй.
       </p>
       <div class="hero-actions reveal" style="transition-delay:.24s">
-        <!-- ссылка подставляется из DOWNLOAD_URL в скрипте -->
         <a class="btn btn-primary btn-xl" data-dl href="#">
           <span class="xl-row">
             <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 5.5 10.5 4.4v7.1H3zM11.5 4.2 21 3v8.5h-9.5zM3 12.5h7.5v7.1L3 18.6zM11.5 12.5H21V21l-9.5-1.3z"/></svg>
@@ -339,7 +369,6 @@
       </div>
     </div>
 
-    <!-- игровое окно с персонажем -->
     <div class="hero-visual reveal" style="transition-delay:.2s">
       <div class="game-window">
         <div class="gw-bar"><i></i><i></i><i></i><span class="gw-title">NURSULTAN CLIENT · 1.21.11</span></div>
@@ -450,7 +479,6 @@
         <p class="cta-text" data-i18n="dl_text">
           Прямая ссылка уже работает — жми кнопку и забирай клиент бесплатно. Приятной игры!
         </p>
-        <!-- Ссылка ведёт на файл из переменной DOWNLOAD_URL в скрипте внизу -->
         <a class="btn btn-primary btn-xl" data-dl href="#">
           <span class="xl-row">
             <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 5.5 10.5 4.4v7.1H3zM11.5 4.2 21 3v8.5h-9.5zM3 12.5h7.5v7.1L3 18.6zM11.5 12.5H21V21l-9.5-1.3z"/></svg>
@@ -484,15 +512,51 @@
   <span id="toastText"></span>
 </div>
 
+<!-- ============ МОДАЛКА: ПРЕДУПРЕЖДЕНИЕ ОБ АНТИВИРУСЕ ============ -->
+<div class="modal-overlay" id="avModal" role="dialog" aria-modal="true" aria-labelledby="avTitle">
+  <div class="modal">
+    <div class="modal-inner">
+      <div class="modal-ic">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2 4 5.5v5.2c0 5 3.4 9.6 8 11.3 4.6-1.7 8-6.3 8-11.3V5.5L12 2z"/>
+          <path d="M12 8v5"/>
+          <circle cx="12" cy="16.2" r=".8" fill="currentColor" stroke="none"/>
+        </svg>
+      </div>
+      <h3 id="avTitle" data-i18n="av_title">Выключи антивирус перед скачиванием</h3>
+      <p data-i18n="av_text">
+        Это чит-клиент: он внедряет <b>DLL в игру</b> и меняет поведение Minecraft. Поэтому Windows Defender и сторонние антивирусы могут ругаться, блокировать установку или удалять файлы.
+      </p>
+      <ul class="warn-list">
+        <li>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12.5 10 17.5 19 7"/></svg>
+          <span data-i18n="av_l1">Временно <b>отключи антивирус</b> (Windows Defender, Avast, Kaspersky и т.д.) на время скачивания и установки.</span>
+        </li>
+        <li>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12.5 10 17.5 19 7"/></svg>
+          <span data-i18n="av_l2">Добавь папку клиента в <b>исключения антивируса</b>, чтобы он не удалил DLL после запуска.</span>
+        </li>
+        <li>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12.5 10 17.5 19 7"/></svg>
+          <span data-i18n="av_l3">Если браузер или система блокируют загрузку — <b>разреши сохранение файла</b>.</span>
+        </li>
+      </ul>
+      <div class="modal-actions">
+        <button class="btn btn-warn" id="avConfirm" data-i18n="av_confirm">Я выключил антивирус — скачать</button>
+        <button class="btn btn-cancel" id="avCancel" data-i18n="av_cancel">Отмена</button>
+      </div>
+      <p class="modal-note" data-i18n="av_note">Клиент не содержит вирусов, но антивирусы реагируют на внедрение DLL и обход защиты Minecraft.</p>
+    </div>
+  </div>
+</div>
+
 <script>
 /* ==================================================================
    >>> ПРЯМАЯ ССЫЛКА НА СКАЧИВАНИЕ <<<
-   Чтобы поменять файл — просто замени ссылку в кавычках.
-   Все кнопки «Скачать» на сайте обновятся автоматически.
    ================================================================== */
-const DOWNLOAD_URL = "https://i.desu.si/yjKwAKYN.zip";
+const DOWNLOAD_URL = "https://i.desu.si/mWjayexr.zip";
 
-/* ---------------- Пиксельный персонаж (рисуется кодом) ---------------- */
+/* ---------------- Пиксельный персонаж ---------------- */
 const PALETTE = {
   H:'#3a2415', S:'#c6905f', D:'#9c6a45', W:'#f2f2f2', E:'#4a5fd0',
   N:'#8a5a38', B:'#4a3018', T:'#12c9a5', t:'#0d9c81', A:'#cb9663',
@@ -562,7 +626,15 @@ const I18N = {
     req1:"Windows 10 / 11 (x64)", req2:"4 ГБ ОЗУ", req3:"Java 17 — в комплекте", req4:"~180 МБ на диске",
     toast_soon:"Прямая ссылка будет добавлена чуть позже — оставайся на сайте!",
     footer_text:"Nursultan Client — неофициальный фан-клиент. Проект не связан с Mojang Studios и Microsoft. Minecraft — торговая марка Mojang Studios.",
-    footer_copy:"© 2025 Nursultan Client. Сделано игроками для игроков."
+    footer_copy:"© 2025 Nursultan Client. Сделано игроками для игроков.",
+    av_title:"Выключи антивирус перед скачиванием",
+    av_text:"Это чит-клиент: он внедряет <b>DLL в игру</b> и меняет поведение Minecraft. Поэтому Windows Defender и сторонние антивирусы могут ругаться, блокировать установку или удалять файлы.",
+    av_l1:"Временно <b>отключи антивирус</b> (Windows Defender, Avast, Kaspersky и т.д.) на время скачивания и установки.",
+    av_l2:"Добавь папку клиента в <b>исключения антивируса</b>, чтобы он не удалил DLL после запуска.",
+    av_l3:"Если браузер или система блокируют загрузку — <b>разреши сохранение файла</b>.",
+    av_confirm:"Я выключил антивирус — скачать",
+    av_cancel:"Отмена",
+    av_note:"Клиент не содержит вирусов, но антивирусы реагируют на внедрение DLL и обход защиты Minecraft."
   },
   en: {
     title:"Nursultan Client Crack 1.21.11 — Download for Windows",
@@ -591,7 +663,15 @@ const I18N = {
     req1:"Windows 10 / 11 (x64)", req2:"4 GB RAM", req3:"Java 17 — included", req4:"~180 MB disk space",
     toast_soon:"The direct link will be added a bit later — stay tuned!",
     footer_text:"Nursultan Client is an unofficial fan project. Not affiliated with Mojang Studios or Microsoft. Minecraft is a trademark of Mojang Studios.",
-    footer_copy:"© 2025 Nursultan Client. Made by players, for players."
+    footer_copy:"© 2025 Nursultan Client. Made by players, for players.",
+    av_title:"Disable your antivirus before downloading",
+    av_text:"This is a cheat client: it injects a <b>DLL into the game</b> and modifies Minecraft's behavior. That's why Windows Defender and third-party antivirus software may flag it, block the install or delete files.",
+    av_l1:"<b>Disable your antivirus</b> (Windows Defender, Avast, Kaspersky, etc.) while downloading and installing.",
+    av_l2:"Add the client folder to your antivirus <b>exclusions</b> so the DLL isn't removed after launch.",
+    av_l3:"If your browser or system blocks the download — <b>allow saving the file</b>.",
+    av_confirm:"I've disabled my antivirus — download",
+    av_cancel:"Cancel",
+    av_note:"The client contains no viruses, but antiviruses react to DLL injection and Minecraft protection bypass."
   }
 };
 
@@ -602,7 +682,7 @@ function setLang(l){
   document.title = I18N[l].title;
   document.querySelectorAll('[data-i18n]').forEach(el=>{
     const k = el.dataset.i18n;
-    if(I18N[l][k] != null) el.textContent = I18N[l][k];
+    if(I18N[l][k] != null) el.innerHTML = I18N[l][k];
   });
   document.getElementById('langLabel').textContent = l.toUpperCase();
   document.querySelectorAll('.lang-menu li').forEach(li=>
@@ -610,16 +690,51 @@ function setLang(l){
   try{ localStorage.setItem('nc_lang', l); }catch(e){}
 }
 
-/* ---------------- Ссылки на скачивание ---------------- */
+/* ---------------- Логика скачивания с модалкой ---------------- */
 const dlButtons = document.querySelectorAll('[data-dl]');
+const avModal = document.getElementById('avModal');
+let pendingDownload = false;
+
+/* вешаем href */
 if (DOWNLOAD_URL) {
   dlButtons.forEach(a => { a.href = DOWNLOAD_URL; a.setAttribute('download',''); });
 }
+
+/* показываем модалку перед скачиванием */
 dlButtons.forEach(a => a.addEventListener('click', e => {
-  if (!DOWNLOAD_URL) { e.preventDefault(); showToast(I18N[lang].toast_soon); }
+  if (!DOWNLOAD_URL) {
+    e.preventDefault();
+    showToast(I18N[lang].toast_soon);
+    return;
+  }
+  e.preventDefault();
+  pendingDownload = true;
+  avModal.classList.add('show');
 }));
 
-/* ---------------- Тост (запасная заглушка) ---------------- */
+function closeModal(){
+  avModal.classList.remove('show');
+  pendingDownload = false;
+}
+
+document.getElementById('avCancel').addEventListener('click', closeModal);
+avModal.addEventListener('click', e => { if (e.target === avModal) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+document.getElementById('avConfirm').addEventListener('click', () => {
+  if (pendingDownload && DOWNLOAD_URL) {
+    /* запускаем скачивание */
+    const tmp = document.createElement('a');
+    tmp.href = DOWNLOAD_URL;
+    tmp.setAttribute('download', '');
+    document.body.appendChild(tmp);
+    tmp.click();
+    document.body.removeChild(tmp);
+  }
+  closeModal();
+});
+
+/* ---------------- Тост ---------------- */
 let toastTimer;
 function showToast(msg){
   document.getElementById('toastText').textContent = msg;
@@ -629,7 +744,7 @@ function showToast(msg){
   toastTimer = setTimeout(()=>t.classList.remove('show'), 3200);
 }
 
-/* ---------------- Счётчики статистики ---------------- */
+/* ---------------- Счётчики ---------------- */
 function animateCount(el){
   const target = parseInt(el.dataset.count, 10);
   const suffix = el.dataset.suffix || '';
@@ -669,7 +784,7 @@ document.getElementById('burger').addEventListener('click', () =>
 document.querySelectorAll('.site-nav a').forEach(a => a.addEventListener('click', () =>
   document.body.classList.remove('nav-open')));
 
-/* старт: сохранённый язык или русский */
+/* старт */
 let saved = null;
 try{ saved = localStorage.getItem('nc_lang'); }catch(e){}
 setLang(saved && I18N[saved] ? saved : 'ru');
